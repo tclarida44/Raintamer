@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1B2F4F"/>
+      <stop offset="100%" stop-color="#050B14"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#g)"/>
+  <rect x="40" y="40" width="1120" height="820" fill="none" stroke="rgba(217,122,60,0.4)" stroke-width="2"/>
+  <text x="80" y="120" font-family="ui-monospace, monospace" font-size="22" letter-spacing="6" fill="#D97A3C">PLACEHOLDER · BLOG · profiles-cover.svg</text>
+  <text x="80" y="500" font-family="system-ui, sans-serif" font-size="76" font-weight="800" fill="#F5F7FA">Gutter profiles</text>
+  <text x="80" y="580" font-family="system-ui, sans-serif" font-size="44" fill="#94A3B8">Replace with real photo before launch</text>
+</svg>
