@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, Calendar, MapPin, Phone, Mail } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -8,17 +9,35 @@ import { CITIES } from "@/lib/cities";
 
 export function FinalCTA() {
   return (
-    <section className="brand-ambient border-b border-bone-50/10 py-28 lg:py-40">
+    <section className="relative isolate overflow-hidden border-b border-bone-50/10 py-28 lg:py-40">
+      {/* Photo backdrop — real install at sunset, heavily dimmed */}
+      <div aria-hidden className="absolute inset-0 -z-20">
+        <Image
+          src="/images/raintamer/custom/custom-01.jpg"
+          alt=""
+          fill
+          quality={70}
+          sizes="100vw"
+          className="object-cover opacity-[0.22]"
+        />
+      </div>
+      {/* Atmospheric brand gradient over the photo */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 60% at 20% 30%, rgba(31,102,255,0.20), transparent 70%), radial-gradient(ellipse 60% 50% at 80% 70%, rgba(31,102,255,0.10), transparent 70%), linear-gradient(180deg, rgba(10,10,11,0.78) 0%, rgba(10,10,11,0.92) 100%)",
+        }}
+      />
       <Container size="full">
         <Reveal>
           <Eyebrow>Ready when you are</Eyebrow>
         </Reveal>
 
         <Reveal delayMs={120}>
-          <h2 className="mt-8 max-w-6xl font-display font-medium tracking-[-0.045em] text-balance text-bone-50 text-[clamp(3rem,11vw,11rem)] leading-[0.88]">
-            Let&apos;s tame
-            <br />
-            <span className="italic font-normal text-rain-500">the next storm.</span>
+          <h2 className="mt-8 max-w-6xl font-display font-medium tracking-[-0.045em] text-balance text-bone-50 text-[clamp(3rem,11vw,11rem)] leading-[0.88] [word-spacing:0.01em]">
+            Let&apos;s <span className="-ml-[0.05em] mr-[0.05em] italic text-rain-400">Tame</span> the next storm.
           </h2>
         </Reveal>
 
@@ -36,14 +55,7 @@ export function FinalCTA() {
               Talk to the person who&apos;ll walk your property. Most calls are answered in two rings, and we book the walk-through right there.
             </p>
 
-            <div className="mt-10 grid gap-6 sm:grid-cols-2">
-              <ContactBlock
-                icon={Mail}
-                label="Email"
-                primary={SITE.email}
-                sub="Replies within one business day"
-                href={`mailto:${SITE.email}`}
-              />
+            <div className="mt-10">
               <ContactBlock
                 icon={Calendar}
                 label="Hours"

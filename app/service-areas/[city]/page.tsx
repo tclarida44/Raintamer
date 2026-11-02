@@ -30,8 +30,24 @@ export async function generateMetadata({
   const c = getCityBySlug(city);
   if (!c) return {};
   return {
-    title: `Seamless Gutters in ${c.name}, OK`,
-    description: `Premium seamless gutters, French drains, and gutter guards in ${c.name}, Oklahoma. Internal hangers every two feet, hand-mitered corners, since 2012.`,
+    title: `Seamless Gutter Installation — ${c.name}, OK`,
+    description: `Rain Tamer installs seamless gutters, French drains, gutter guards, and commercial gutter systems in ${c.name}, Oklahoma. Serving ${c.name} homeowners since 2010 with 5", 6" K-style, box, half-round, and copper profiles. Hidden hangers every 24 inches, hand-mitered corners, 28 baked-enamel colors. Free estimates.`,
+    keywords: [
+      `seamless gutters ${c.name} OK`,
+      `gutter installation ${c.name}`,
+      `gutter contractor ${c.name} Oklahoma`,
+      `gutter installers ${c.name} OK`,
+      `gutter company ${c.name}`,
+      `K-style gutters ${c.name}`,
+      `half-round gutters ${c.name}`,
+      `copper gutters ${c.name} Oklahoma`,
+      `French drain installation ${c.name} OK`,
+      `gutter guards ${c.name}`,
+      `gutter cleaning ${c.name}`,
+      `commercial gutters ${c.name} Oklahoma`,
+      `free gutter estimate ${c.name}`,
+      `Rain Tamer ${c.name}`,
+    ],
     alternates: { canonical: `${SITE.url}/service-areas/${c.slug}` },
   };
 }
@@ -87,10 +103,10 @@ export default async function CityPage({
           <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-16">
             <Reveal className="lg:col-span-7">
               <p className="font-display text-[clamp(1.5rem,2.2vw,2.25rem)] font-medium leading-[1.3] tracking-[-0.02em] text-bone-50 text-pretty">
-                Rain Tamer has installed thousands of feet of seamless gutter, French drain, and gutter guard across {c.name} since 2012. Each install starts with a walk of the property, the roof, and the lot grade. {c.localDetail}
+                Rain Tamer has installed thousands of feet of seamless gutter, French drain, and gutter guard across {c.name} since 2011. Each install starts with a walk of the property, the roof, and the lot grade. {c.localDetail}
               </p>
               <p className="mt-6 text-[16px] leading-[1.6] text-bone-300">
-                Whether the home is a new build that needs the original builder gutters upgraded, an older property that&apos;s never had downspout outlet tubes, or a copper-trim project that deserves real craftsmanship, our crews handle it the same way: install standards first, no shortcuts.
+                New builds coming off builder-grade gutters, older homes that never had proper downspout outlet tubes, copper-trim projects where the fascia line has to be dead straight — the crews handle them all the same way: install standards first, no shortcuts.
               </p>
               <p className="mt-4 text-[16px] leading-[1.6] text-bone-300">
                 We schedule in {c.name} every week. Most jobs are completed in a single day, with bagged debris hauled off, the work photographed, and the warranty walked through with you before the truck leaves the driveway.

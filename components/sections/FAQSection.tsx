@@ -37,7 +37,6 @@ export function FAQSection() {
                 </p>
                 <ul className="mt-6 space-y-3">
                   <ContactRow icon={Phone} label="Call" value={SITE.phone} href={`tel:${SITE.phoneTel}`} />
-                  <ContactRow icon={Mail} label="Email" value={SITE.email} href={`mailto:${SITE.email}`} />
                   <ContactRow icon={MessageSquare} label="Estimate form" value="Send the spec" href="/contact" />
                 </ul>
                 <div className="mt-6 border-t border-bone-50/10 pt-4">

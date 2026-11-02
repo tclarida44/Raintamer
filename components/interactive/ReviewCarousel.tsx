@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Star } from "lucide-react";
 import { REVIEWS } from "@/lib/reviews";
 import { SITE } from "@/lib/site";
 
@@ -63,12 +64,19 @@ export function ReviewCarousel() {
         </div>
 
         <aside className="lg:col-span-3">
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-bone-500">Rated</p>
-          <p className="mt-2 num text-[clamp(3rem,6vw,5rem)] text-bone-50">
-            {SITE.stats.googleRating}
-          </p>
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-bone-300">
-            On {SITE.stats.googleReviewCount}+ Google reviews
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-bone-500">On Google</p>
+          <div className="mt-3 flex items-center gap-0.5" aria-hidden>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} className="size-6 fill-[#FBBC04] text-[#FBBC04]" />
+            ))}
+          </div>
+          <p className="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-semibold leading-[1.05] tracking-[-0.02em] text-bone-50">
+            Over{" "}
+            <span className="text-[#FBBC04]">
+              {SITE.stats.googleReviewCount.toLocaleString()}
+            </span>
+            <br />
+            5-star reviews
           </p>
           <a
             href={SITE.socials.google}

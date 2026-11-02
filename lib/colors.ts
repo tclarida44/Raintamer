@@ -125,8 +125,8 @@ export const GUTTER_PROFILES: GutterProfile[] = [
   },
   {
     id: "hr-6",
-    label: "Half Round 6\"",
-    size: 6,
+    label: "Half Round 6.5\"",
+    size: 6.5,
     family: "half-round",
     description: "A traditional half-round profile, often specified in copper for historic homes.",
   },

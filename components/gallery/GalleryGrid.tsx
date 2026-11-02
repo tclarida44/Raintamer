@@ -5,34 +5,65 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { PROJECTS, SERVICE_FILTERS, type Project } from "@/lib/projects";
+import { PROJECTS, TYPE_FILTERS, type Project } from "@/lib/projects";
 import { cn } from "@/lib/utils";
-import type { ServiceSlug } from "@/lib/services";
 
-type FilterKey = ServiceSlug | "all";
+/**
+ * Deterministic round-robin interleave by title so the "All" tab shows
+ * even variety — one K-style, then one Half-round, then one Box, then
+ * one Drain, then one Copper, etc. Prevents the "60 half-rounds in a
+ * row" problem that came from bulk-importing entire category folders.
+ */
+function interleaveByTitle(projects: readonly Project[]): Project[] {
+  const buckets = new Map<string, Project[]>();
+  for (const p of projects) {
+    if (!buckets.has(p.title)) buckets.set(p.title, []);
+    buckets.get(p.title)!.push(p);
+  }
+  const rows = [...buckets.values()];
+  const out: Project[] = [];
+  let stillGoing = true;
+  while (stillGoing) {
+    stillGoing = false;
+    for (const row of rows) {
+      const next = row.shift();
+      if (next) {
+        out.push(next);
+        stillGoing = true;
+      }
+    }
+  }
+  return out;
+}
+
+const ALL_INTERLEAVED = interleaveByTitle(PROJECTS);
 
 export function GalleryGrid() {
-  const [filter, setFilter] = useState<FilterKey>("all");
+  const [filter, setFilter] = useState<string>("all");
   const [lightbox, setLightbox] = useState<Project | null>(null);
 
   const filtered = useMemo(
-    () => (filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.serviceSlug === filter)),
+    () =>
+      filter === "all"
+        ? ALL_INTERLEAVED
+        : PROJECTS.filter((p) => p.title === filter),
     [filter],
   );
 
   return (
     <>
-      {/* Filter bar */}
-      <div className="border-b border-bone-50/10 bg-ink-1000/85 backdrop-blur sticky top-16 z-30">
+      {/* Filter bar — sits right above the photo grid in normal flow.
+          Scrolls with the page like any other content. */}
+      <div className="border-b border-bone-50/10 bg-ink-1000/85">
         <div className="mx-auto flex w-full max-w-[1640px] flex-wrap items-center gap-x-6 gap-y-3 px-6 py-4 md:px-10 lg:px-16">
           <Eyebrow>Filter</Eyebrow>
           <div className="flex flex-wrap items-center gap-1.5">
-            {SERVICE_FILTERS.map((opt) => {
-              const active = filter === opt.slug;
+            {TYPE_FILTERS.map((opt) => {
+              const active = filter === opt.key;
               return (
                 <button
-                  key={opt.slug}
-                  onClick={() => setFilter(opt.slug as FilterKey)}
+                  key={opt.key}
+                  onClick={() => setFilter(opt.key)}
                   aria-pressed={active}
                   className={cn(
                     "rounded-[3px] border px-3 py-1.5 font-mono text-[10.5px] uppercase tracking-[0.22em] transition-colors",

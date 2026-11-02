@@ -46,8 +46,8 @@ export function Footer() {
               <Link href="/visualizer">Visualizer</Link>
               <Link href="/gallery">Gallery</Link>
               <Link href="/blog">Blog</Link>
+              <Link href="/payments">Pay Invoice</Link>
               <Link href="/contact">Get an Estimate</Link>
-              <a href={`mailto:${SITE.email}`}>Email</a>
             </FooterCol>
           </div>
         </div>

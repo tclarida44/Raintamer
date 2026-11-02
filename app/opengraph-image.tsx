@@ -40,7 +40,7 @@ export default async function OgImage() {
               background: "#1F66FF",
             }}
           />
-          OKC · Since 2012
+          OKC · Since 2011
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div

@@ -13,9 +13,18 @@ import { breadcrumbSchema } from "@/lib/schema";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Services Overview",
+  title: "Gutter Installation, Drains & Guards — Services",
   description:
-    "Seamless gutters, French drains, gutter guards, gutter cleaning, and commercial gutter systems across the Oklahoma City metro.",
+    "Full-service gutter contractor serving Oklahoma City and the OKC metro. Seamless gutter installation, French drain installation, gutter guards, gutter cleaning, and commercial gutter systems. Free estimates across Edmond, Norman, Moore, Yukon, Mustang, Nichols Hills, and Bethany.",
+  keywords: [
+    "gutter installation services Oklahoma City",
+    "seamless gutter installation OKC",
+    "French drain installation Oklahoma City",
+    "gutter guards installation OKC",
+    "commercial gutter systems Oklahoma City",
+    "gutter cleaning services OKC",
+    "gutter contractor services Oklahoma City",
+  ],
 };
 
 const APPROACH = [
@@ -27,7 +36,7 @@ const APPROACH = [
   {
     icon: Wrench,
     title: "Built on standards.",
-    body: "Every install gets the same six rules: internal hangers every 24″, hand-mitered corners, riveted downspouts, outlet tubes at every drop, positive slope verified with a level, 100% polyurethane sealant.",
+    body: "Every install gets the same six rules: internal hangers every 24″, hand-mitered corners, riveted downspouts, outlet tubes at every drop, positive pitch to the nearest downspout, 100% polyurethane sealant.",
   },
   {
     icon: ShieldCheck,
@@ -47,11 +56,11 @@ export default function ServicesIndex() {
       />
       <PageHero
         eyebrow="Services"
-        title="Five disciplines, one system."
+        title="Five specialties, one system."
         description="Every Rain Tamer install is designed to work with the others. Gutters move water off the roof; drainage moves it off the lot; guards keep both flowing."
-        secondary="We don't sell point fixes. We design the entire water path on your property and only spec the disciplines you actually need. Start with one, add the rest if and when it makes sense."
+        secondary="We don't sell point fixes. We design the entire water path on your property and only spec the specialties you actually need. Start with one, add the rest if and when it makes sense."
         meta={[
-          { label: "Disciplines", value: "5" },
+          { label: "Specialties", value: "5" },
           { label: "Standard", value: "1" },
           { label: "Warranty", value: "Lifetime" },
         ]}
@@ -69,7 +78,7 @@ export default function ServicesIndex() {
                 The system before the spec.
               </h2>
               <p className="mt-6 max-w-md text-[17px] leading-[1.55] text-bone-300">
-                Most contractors lead with the product. We lead with the water. The five disciplines below all exist to solve the same problem: keep water moving until it&apos;s well away from the foundation.
+                Most contractors lead with the product. We lead with the water. The five specialties below all exist to solve the same problem: keep water moving until it&apos;s well away from the foundation.
               </p>
             </Reveal>
             <div className="lg:col-span-7">
@@ -101,7 +110,7 @@ export default function ServicesIndex() {
       {/* Services list */}
       <section className="border-b border-bone-50/10 py-20 lg:py-28">
         <Container size="full">
-          <SectionLabel number="02" label="Disciplines" />
+          <SectionLabel number="02" label="Specialties" />
           <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-16">
             <Reveal className="lg:col-span-5">
               <Eyebrow>What we install</Eyebrow>

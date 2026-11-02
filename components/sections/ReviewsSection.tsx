@@ -4,6 +4,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import { ReviewCarousel } from "@/components/interactive/ReviewCarousel";
+import { GoogleReviewBadge } from "@/components/interactive/GoogleReviewBadge";
 import { REVIEWS } from "@/lib/reviews";
 import { SITE } from "@/lib/site";
 
@@ -15,7 +16,7 @@ export function ReviewsSection() {
   const secondary = REVIEWS.slice(1, 4);
 
   return (
-    <section className="border-b border-bone-50/10 py-16 lg:py-24">
+    <section className="brand-section-blue border-b border-bone-50/10 py-16 lg:py-24">
       <Container size="full">
         <SectionLabel number="05" label="Reviews" />
 
@@ -36,6 +37,9 @@ export function ReviewsSection() {
               <p className="mt-4 max-w-2xl text-[15px] leading-[1.6] text-bone-300">
                 We don&apos;t pay for reviews, we don&apos;t filter them, and we don&apos;t pick our favorites. Every quote on this page is from a real Rain Tamer customer.
               </p>
+              <div className="mt-8">
+                <GoogleReviewBadge size="lg" />
+              </div>
             </Reveal>
           </div>
         </div>
@@ -49,9 +53,9 @@ export function ReviewsSection() {
           {secondary.map((r, i) => (
             <Reveal key={r.id} delayMs={i * 90}>
               <article className="flex h-full flex-col border border-bone-50/10 bg-ink-950 p-7">
-                <div className="flex items-center gap-1 text-rain-500" aria-label={`${r.rating} out of 5`}>
+                <div className="flex items-center gap-1" aria-label={`${r.rating} out of 5`}>
                   {Array.from({ length: r.rating }).map((_, idx) => (
-                    <Star key={idx} className="size-3.5 fill-current" />
+                    <Star key={idx} className="size-3.5 fill-[#FBBC04] text-[#FBBC04]" />
                   ))}
                 </div>
                 <p className="mt-5 flex-1 font-display text-[17px] leading-[1.45] tracking-[-0.01em] text-bone-50">
@@ -73,8 +77,8 @@ export function ReviewsSection() {
           <div className="grid grid-cols-2 gap-8 border-t border-bone-50/15 pt-8 sm:grid-cols-4">
             <StatItem value={`${SITE.stats.googleRating}`} suffix="★" label="Google rating" />
             <StatItem value={`${SITE.stats.googleReviewCount}+`} label="Reviews" />
-            <StatItem value="98%" label="5-star ratings" />
-            <StatItem value="1 day" label="Response time" />
+            <StatItem value={`${SITE.stats.yearsInBusiness}`} suffix=" yrs" label="OKC family-owned" />
+            <StatItem value="1 day" label="Reply time" />
           </div>
         </Reveal>
       </Container>
@@ -101,7 +105,7 @@ function StatItem({
     <div className="flex flex-col gap-2">
       <span className="num text-[clamp(2rem,4vw,3rem)] text-bone-50">
         {value}
-        {suffix && <span className="text-rain-400">{suffix}</span>}
+        {suffix && <span className="text-[#FBBC04]">{suffix}</span>}
       </span>
       <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-bone-500">
         {label}

@@ -4,18 +4,23 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
 import { GutterConfigurator } from "@/components/interactive/GutterConfigurator";
 
-function SpecStat({ term, value }: { term: string; value: string }) {
+/**
+ * Self-contained pill. Value + label live on ONE baseline inside a
+ * rounded pill so there is no cross-column alignment anywhere. Each
+ * pill wraps as a unit on narrow screens.
+ */
+function SpecPill({ term, value }: { term: string; value: string }) {
   return (
-    <div className="flex flex-col gap-1.5">
-      <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-bone-500">{term}</dt>
-      <dd className="num text-3xl text-bone-50 sm:text-4xl">{value}</dd>
-    </div>
+    <li className="inline-flex items-baseline gap-2 rounded-full border border-bone-50/15 bg-bone-50/[0.03] px-4 py-2">
+      <span className="num text-xl leading-none text-bone-50 sm:text-2xl">{value}</span>
+      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-bone-400">{term}</span>
+    </li>
   );
 }
 
 export function ConfiguratorSection() {
   return (
-    <section id="configurator" className="border-b border-bone-50/10 py-16 lg:py-24">
+    <section id="configurator" className="brand-section-blue border-b border-bone-50/10 py-16 lg:py-24">
       <Container size="full">
         <SectionLabel number="03" label="Configurator" />
 
@@ -31,16 +36,16 @@ export function ConfiguratorSection() {
           <div className="lg:col-span-7 lg:pt-4">
             <Reveal>
               <p className="max-w-2xl text-[17px] leading-[1.6] text-bone-300">
-                Twenty-three baked-on painted colors and two premium metals, across five profiles. Match the gutter to the home, not the other way around. Most jobs ship in painted aluminum; solid copper and Galvalume Plus steel are available on request.
+                28 painted colors in a baked enamel finish, plus 5 premium metals across five profiles. Painted aluminum coil ships from Senox. Most jobs are installed in Aluminum, Copper, Galvalume, Zinc, or Steel — all available upon request.
               </p>
               <p className="mt-4 max-w-2xl text-[15px] leading-[1.6] text-bone-300">
                 Use the configurator to lock the profile and the color, then send the spec straight to your estimate. We&apos;ll bring matched samples on the walk-through.
               </p>
-              <dl className="mt-8 grid max-w-xl grid-cols-3 gap-x-6 gap-y-4 border-t border-bone-50/10 pt-6">
-                <SpecStat term="Painted colors" value="23" />
-                <SpecStat term="Premium metals" value="2" />
-                <SpecStat term="Profiles" value="5" />
-              </dl>
+              <ul className="mt-8 flex flex-wrap gap-x-3 gap-y-3 border-t border-bone-50/10 pt-6">
+                <SpecPill term="Painted colors" value="28" />
+                <SpecPill term="Premium metals" value="5" />
+                <SpecPill term="Profile choices" value="5" />
+              </ul>
             </Reveal>
           </div>
         </div>

@@ -10,13 +10,17 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { SERVICES, type Service, type ServiceSlug } from "@/lib/services";
+import { PROJECTS } from "@/lib/projects";
 
 const SERVICE_HERO_IMAGES: Record<ServiceSlug, string> = {
-  "seamless-gutters": "/images/stock/colonial-home.jpg",
-  "commercial-gutters": "/images/stock/modern-home.jpg",
-  "french-drains": "/images/stock/installer-caulk.jpg",
-  "gutter-guards": "/images/stock/autumn-home.jpg",
-  "gutter-cleaning": "/images/stock/autumn-home.jpg",
+  // Residential K-style in dark bronze — the workhorse seamless install,
+  // representative of what most homeowners will actually get.
+  "seamless-gutters": "/images/raintamer/k-style-6/k-style-6-14.jpg",
+  // BancFirst branch — instantly recognizable local commercial project.
+  "commercial-gutters": "/images/raintamer/commercial/commercial-12.jpg",
+  "french-drains": "/images/raintamer/drains/drains-01.jpg",
+  "gutter-guards": "/images/raintamer/leaf-guards/leaf-guards-05.jpg",
+  "gutter-cleaning": "/images/raintamer/trucks-crew/trucks-crew-07.jpg",
 };
 
 type ProcessStep = { num: string; title: string; body: string };
@@ -26,17 +30,17 @@ const SERVICE_PROCESS: Record<ServiceSlug, ProcessStep[]> = {
     {
       num: "01",
       title: "Measure & spec",
-      body: "We walk every roof line, measure each run, and pick the profile and downspout size to match the actual water volume, not a default.",
+      body: "We walk every roof line, measure each run, and choose the correct gutter and downspout profile and size to match the size and style of the home.",
     },
     {
       num: "02",
       title: "Form on site",
-      body: "Aluminum is fed through a brake machine in your driveway and cut to the exact length of each run. No factory joints, no waste.",
+      body: "Metal is fed through a seamless gutter machine on-site and cut to the exact length. No factory joints, no waste.",
     },
     {
       num: "03",
       title: "Hang & finish",
-      body: "Internal hangers every 24″, hand-mitered corners riveted and sealed, outlet tubes at every drop. Photographed before we leave.",
+      body: "Hidden support hangers every 24″ — plus the proper brackets or roof mounts depending on the size and profile of the fascia we're installing to. Hand-mitered corners riveted and sealed. Outlet tubes at every downspout for a sleek look and optimal function.",
     },
   ],
   "commercial-gutters": [
@@ -60,17 +64,17 @@ const SERVICE_PROCESS: Record<ServiceSlug, ProcessStep[]> = {
     {
       num: "01",
       title: "Grade & plan",
-      body: "We walk the lot, check soil and slope, and design the trench path to a workable outlet. Smallest viable scope, not the largest.",
+      body: "We assess the problem areas and check grade slope so the drain can run on gravity. Then we lay out the pipe runs, basins, and outlets, and mark it all on the ground.",
     },
     {
       num: "02",
-      title: "Trench & wrap",
-      body: "Trench cut to depth, lined with non-woven filter fabric, perforated pipe set with holes down, washed gravel envelope on every side.",
+      title: "Trench & install",
+      body: "The top layer of grass and soil is lifted and set aside. Trench is dug to depth and pitched for flow. PVC pipe, basins, and components go in; concrete is bored or cored where the water needs to daylight.",
     },
     {
       num: "03",
-      title: "Outlet to daylight",
-      body: "Daylight or pop-up emitter at the low point. No blind ends, no dry wells in OKC clay unless conditions actually warrant it.",
+      title: "Test, cover, clean up",
+      body: "Grass is reinstalled, the drain is flow-tested with water, and the site is cleaned. Nothing goes back on top until we've watched it drain.",
     },
   ],
   "gutter-guards": [
@@ -86,8 +90,8 @@ const SERVICE_PROCESS: Record<ServiceSlug, ProcessStep[]> = {
     },
     {
       num: "03",
-      title: "Install without lifting shingles",
-      body: "Guards installed without modifying or voiding your roof warranty. Lifetime no-clog warranties available on premium systems.",
+      title: "Install properly",
+      body: "Installed to the manufacturer's spec — securely fastened, color-matched, and pitched to shed debris. Lifetime no-clog warranties available on premium systems.",
     },
   ],
   "gutter-cleaning": [
@@ -112,8 +116,8 @@ const SERVICE_PROCESS: Record<ServiceSlug, ProcessStep[]> = {
 const SERVICE_FACTS: Record<ServiceSlug, { label: string; value: string }[]> = {
   "seamless-gutters": [
     { label: "Typical timeline", value: "1 day" },
-    { label: "Profiles available", value: "5" },
-    { label: "Colors in stock", value: "23" },
+    { label: "Profiles", value: "5" },
+    { label: "Colors in stock", value: "28" },
     { label: "Warranty", value: "Lifetime" },
   ],
   "commercial-gutters": [
@@ -217,12 +221,12 @@ export function ServiceDetail({
       </section>
 
       {/* How it works for this service */}
-      <section className="brand-ambient-soft border-b border-bone-50/10 py-20 lg:py-32">
+      <section className="brand-section-blue border-b border-bone-50/10 py-20 lg:py-32">
         <Container size="full">
           <SectionLabel number="02" label={`How ${service.shortTitle.toLowerCase()} go in`} />
           <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-16">
             <Reveal className="lg:col-span-5">
-              <Eyebrow>Three steps. No surprises.</Eyebrow>
+              <Eyebrow>Start to warranty</Eyebrow>
               <h2 className="mt-5 font-display font-medium tracking-[-0.04em] text-balance text-bone-50 text-[clamp(2rem,5vw,3.75rem)] leading-[0.95]">
                 How we install it.
               </h2>
@@ -271,6 +275,8 @@ export function ServiceDetail({
 
       {children}
 
+      <RecentInstalls service={service} />
+
       <ReviewsSection />
 
       {/* Pair with */}
@@ -281,7 +287,7 @@ export function ServiceDetail({
             <Reveal className="lg:col-span-5">
               <Eyebrow>One system</Eyebrow>
               <h2 className="mt-5 font-display font-medium tracking-[-0.04em] text-balance text-bone-50 text-[clamp(2rem,5vw,3.5rem)] leading-[0.95]">
-                Our other disciplines.
+                Our other specialties.
               </h2>
               <p className="mt-6 max-w-md text-[17px] leading-[1.55] text-bone-300">
                 Most homes benefit from two or three of these working together. Browse the rest, then send your full scope to a single estimate.
@@ -314,5 +320,64 @@ export function ServiceDetail({
 
       <FinalCTA />
     </>
+  );
+}
+
+function RecentInstalls({ service }: { service: Service }) {
+  const installs = PROJECTS.filter((p) => p.serviceSlug === service.slug).slice(0, 6);
+  if (installs.length === 0) return null;
+
+  return (
+    <section className="brand-ambient-soft border-b border-bone-50/10 py-20 lg:py-28">
+      <Container size="full">
+        <SectionLabel number="—" label="Recent installs" />
+        <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-16">
+          <Reveal className="lg:col-span-5">
+            <Eyebrow>From the field</Eyebrow>
+            <h2 className="mt-5 font-display font-medium tracking-[-0.04em] text-balance text-bone-50 text-[clamp(2rem,5vw,3.5rem)] leading-[0.95]">
+              Real {service.shortTitle.toLowerCase()} work.
+            </h2>
+            <p className="mt-6 max-w-md text-[17px] leading-[1.55] text-bone-300">
+              Photos from recent Rain Tamer {service.shortTitle.toLowerCase()} installs across the OKC metro. The full gallery has more.
+            </p>
+            <Link
+              href="/gallery"
+              className="mt-8 inline-flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-[0.22em] text-rain-400 hover:text-rain-500"
+            >
+              View full gallery
+              <ArrowUpRight className="size-3.5" />
+            </Link>
+          </Reveal>
+
+          <div className="lg:col-span-7">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {installs.map((p, i) => (
+                <Reveal key={p.id} delayMs={i * 50}>
+                  <Link
+                    href="/gallery"
+                    className="group relative block aspect-square overflow-hidden border border-bone-50/10"
+                  >
+                    <Image
+                      src={p.image}
+                      alt={p.title}
+                      fill
+                      sizes="(min-width: 1024px) 18vw, 33vw"
+                      quality={70}
+                      className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink-1000/70 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                    <div className="absolute inset-x-0 bottom-0 p-3 opacity-0 transition-opacity group-hover:opacity-100">
+                      <p className="font-mono text-[9.5px] uppercase tracking-[0.22em] text-bone-50">
+                        {p.location}
+                      </p>
+                    </div>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
   );
 }

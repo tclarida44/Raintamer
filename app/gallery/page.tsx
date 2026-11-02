@@ -7,9 +7,19 @@ import { breadcrumbSchema } from "@/lib/schema";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Gallery",
+  title: "Gutter Installation Photos & Project Gallery",
   description:
-    "Selected Rain Tamer installs from across the Oklahoma City metro: seamless gutters, copper half-round, French drains, and gutter guards.",
+    "See recent Rain Tamer gutter installs across the Oklahoma City metro: seamless K-style, copper half-round, box profiles, commercial gutter systems, French drains, gutter guards, and rain chains. Photos from real jobs in Edmond, Norman, Moore, Yukon, Nichols Hills, and Oklahoma City.",
+  keywords: [
+    "gutter installation photos Oklahoma City",
+    "seamless gutter gallery OKC",
+    "copper gutter installation photos Oklahoma City",
+    "gutter installation before and after Oklahoma City",
+    "commercial gutter photos Oklahoma City",
+    "French drain installation photos OKC",
+    "Rain Tamer projects Oklahoma City",
+    "residential gutter examples Oklahoma City",
+  ],
 };
 
 export default function GalleryPage() {
@@ -27,9 +37,9 @@ export default function GalleryPage() {
         description="A look at recent installs from across the metro. Filter by service to see specifically what we install in your category, or click any tile to see the scope behind it."
         secondary="Every project here notes the location, the service performed, and the call we made on profile, color, and drainage. Where photography permits, we'll add before/after pairs as new shoots come in."
         meta={[
-          { label: "Featured", value: "12" },
-          { label: "Services", value: "5" },
-          { label: "Cities", value: "9" },
+          { label: "Featured", value: "67" },
+          { label: "Services", value: "4" },
+          { label: "Coverage", value: "OKC metro" },
         ]}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Gallery" }]}
       />

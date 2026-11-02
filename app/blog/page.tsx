@@ -17,8 +17,17 @@ import { breadcrumbSchema } from "@/lib/schema";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Blog",
-  description: "Field notes from Rain Tamer on gutters, drainage, and Oklahoma weather.",
+  title: "Gutter, Drainage & Storm Prep Blog — Oklahoma City",
+  description: "Field notes from Rain Tamer on gutter installation, French drains, gutter guards, and Oklahoma City storm weather. Local tips from an OKC gutter contractor since 2010.",
+  keywords: [
+    "gutter tips Oklahoma City",
+    "gutter installation blog OKC",
+    "French drain tips Oklahoma",
+    "storm prep Oklahoma City",
+    "seamless gutter guide OKC",
+    "gutter maintenance blog Oklahoma",
+    "Rain Tamer blog",
+  ],
 };
 
 export default function BlogIndex({
@@ -38,7 +47,7 @@ export default function BlogIndex({
         eyebrow="Blog"
         title="Field notes."
         description="What we've learned installing thousands of feet of gutter and drain across the Oklahoma City metro. Practical pieces from the people doing the work."
-        secondary="How often to clean gutters in this climate, when a French drain actually pays off, which profile belongs on which home. Written by the installers, not the marketing team. If you read one before the walk-through, the conversation goes faster."
+        secondary="How often to clean gutters in this climate, when a French drain actually pays off, which profile belongs on which home. Field notes from the crews that run the jobs. If you read one before the walk-through, the conversation goes faster."
         meta={[
           { label: "Format", value: "Field notes" },
           { label: "By", value: "Installers" },

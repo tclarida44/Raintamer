@@ -87,8 +87,14 @@ export function GutterConfigurator({ id }: { id?: string }) {
           <div className="mt-6 grid grid-cols-2 gap-x-5 gap-y-3 border-t border-bone-50/10 pt-5">
             <SpecCell term="Width" value={`${profile.size}″`} />
             <SpecCell term="Family" value={titleCase(profile.family.replace("-", " "))} />
-            <SpecCell term="Capacity" value={profile.size === 6 ? "1.7 gal/ft" : "1.2 gal/ft"} />
-            <SpecCell term="Downspout" value={profile.size === 6 ? "3 × 4″" : "2 × 3″"} />
+            <SpecCell
+              term="Capacity"
+              value={PROFILE_SPECS[profile.id]?.capacity ?? "1.2 gal/ft"}
+            />
+            <SpecCell
+              term="Downspout"
+              value={PROFILE_SPECS[profile.id]?.downspout ?? "2 × 3″"}
+            />
           </div>
 
           <div className="mt-6 flex flex-wrap gap-2">
@@ -468,6 +474,29 @@ function ProfilePhoto({
    Big cross-section — multi-layer realistic SVG render
    ==================================================================== */
 
+// ─── Real Rain Tamer profile dimensions ───────────────────────────────
+// All values are in inches, sourced directly from the Rain Tamer profile
+// spec sheets. The SVG below is drawn to these exact proportions so the
+// visualizer matches what actually gets installed.
+type ProfileSpec = {
+  widthTop: number;       // top opening width
+  widthBottom: number;    // floor width (0 for half-round)
+  heightBack: number;     // back wall height
+  heightFront: number;    // front face height
+  frontLip: number;       // top-front return lip
+  radius?: number;        // radius (half-round only)
+  capacity: string;       // gal/ft — from the actual profile
+  downspout: string;      // matched downspout size
+};
+
+const PROFILE_SPECS: Record<string, ProfileSpec> = {
+  "k-5":   { widthTop: 5.0, widthBottom: 3.25, heightBack: 3.62, heightFront: 3.45, frontLip: 0.6,   capacity: "1.2 gal/ft", downspout: "2 × 3″" },
+  "k-6":   { widthTop: 6.0, widthBottom: 4.0,  heightBack: 5.15, heightFront: 4.60, frontLip: 0.8,   capacity: "1.7 gal/ft", downspout: "3 × 4″" },
+  "box-5": { widthTop: 5.0, widthBottom: 4.5,  heightBack: 3.5,  heightFront: 3.5,  frontLip: 0.625, capacity: "1.4 gal/ft", downspout: "2 × 3″" },
+  "box-6": { widthTop: 6.0, widthBottom: 5.5,  heightBack: 4.1875, heightFront: 4.0, frontLip: 0.625, capacity: "1.9 gal/ft", downspout: "3 × 4″" },
+  "hr-6":  { widthTop: 6.5, widthBottom: 0,    heightBack: 3.25, heightFront: 3.25, frontLip: 0.625, radius: 3, capacity: "1.5 gal/ft", downspout: "3″ round" },
+};
+
 function BigCrossSection({
   profile,
   color,
@@ -477,65 +506,134 @@ function BigCrossSection({
   color: GutterColor;
   material: Material;
 }) {
-  const W = profile.size === 6 ? 280 : 240;
-  const H = profile.size === 6 ? 200 : 180;
+  const spec = PROFILE_SPECS[profile.id] ?? PROFILE_SPECS["k-6"];
+
+  // Scale: 40 SVG units per inch. Renders K-6 at 240×206, K-5 at 200×145,
+  // Box-6 at 240×167, HR-6.5 at 260×130.
+  const S = 40;
   const SX = 30;
   const SY = 20;
+  const W = spec.widthTop * S;
+  const H = Math.max(spec.heightBack, spec.heightFront) * S;
 
-  // Outer shape path
   let outline = "";
-  // Inner bowl path (for AO inside the gutter)
   let bowl = "";
-  // Top edge highlight path (thin sliver along the top rim)
   let topRim = "";
 
   if (profile.family === "k-style") {
+    /* ─── K-STYLE ("ogee" / crown) ─────────────────────────────────────
+       Spec sheets:
+         5":  W 5.00, BW 3.25, HB 3.62, HF 3.45, frontLip 0.6
+         6":  W 6.00, BW 4.00, HB 5.15, HF 4.60, frontLip 0.8
+       The back-vs-front height difference in the spec is only 5-12%.
+       We draw front and back both to the front-face height so the profile
+       reads as a balanced K-style crown instead of a lopsided one. */
+    const bw = spec.widthBottom * S;
+    const H = spec.heightFront * S;      // use front-face height for the whole profile
+    const lip = spec.frontLip * S;
+    const insetX = W - bw;               // x-coord of the bottom-front corner
+    const cornerR = 4;                   // subtle chamfer at bottom-front
     outline = `
       M ${SX} ${SY}
       L ${SX + W} ${SY}
-      L ${SX + W} ${SY + 28}
-      Q ${SX + W - 10} ${SY + 50} ${SX + W - 24} ${SY + 64}
-      L ${SX + W - 24} ${SY + H - 18}
-      Q ${SX + W - 32} ${SY + H} ${SX + W - 50} ${SY + H}
-      L ${SX + 50} ${SY + H}
-      Q ${SX + 32} ${SY + H} ${SX + 24} ${SY + H - 18}
-      L ${SX + 24} ${SY + 64}
-      Q ${SX + 10} ${SY + 50} ${SX} ${SY + 28}
+      L ${SX + W} ${SY + H}
+      L ${SX + insetX + cornerR} ${SY + H}
+      Q ${SX + insetX} ${SY + H}, ${SX + insetX} ${SY + H - cornerR}
+      L ${SX + insetX} ${SY + H * 0.78}
+      C
+        ${SX + insetX * 0.75} ${SY + H * 0.75},
+        ${SX + insetX * 0.55} ${SY + H * 0.62},
+        ${SX + insetX * 0.30} ${SY + H * 0.48}
+      C
+        ${SX + insetX * 0.08} ${SY + H * 0.34},
+        ${SX + insetX * 0.02} ${SY + H * 0.22},
+        ${SX + lip * 0.7} ${SY + H * 0.14}
+      Q ${SX + lip * 0.35} ${SY + lip * 0.7}, ${SX} ${SY + lip}
+      L ${SX} ${SY}
       Z
     `;
     bowl = `
-      M ${SX + 8} ${SY + 12}
-      L ${SX + W - 8} ${SY + 12}
-      L ${SX + W - 28} ${SY + 60}
-      L ${SX + W - 28} ${SY + H - 22}
-      L ${SX + 28} ${SY + H - 22}
-      L ${SX + 28} ${SY + 60}
+      M ${SX + 6} ${SY + 8}
+      L ${SX + W - 6} ${SY + 8}
+      L ${SX + W - 6} ${SY + H - 8}
+      L ${SX + insetX + 2} ${SY + H - 8}
+      L ${SX + insetX * 0.30 + 8} ${SY + H * 0.52}
+      L ${SX + 8} ${SY + H * 0.28}
       Z
     `;
     topRim = `M ${SX + 4} ${SY + 4} L ${SX + W - 4} ${SY + 4}`;
   } else if (profile.family === "box") {
-    outline = `M ${SX} ${SY} L ${SX + W} ${SY} L ${SX + W} ${SY + H} L ${SX} ${SY + H} Z`;
-    bowl = `M ${SX + 6} ${SY + 12} L ${SX + W - 6} ${SY + 12} L ${SX + W - 6} ${SY + H - 6} L ${SX + 6} ${SY + H - 6} Z`;
-    topRim = `M ${SX + 4} ${SY + 4} L ${SX + W - 4} ${SY + 4}`;
-  } else {
+    /* ─── BOX ──────────────────────────────────────────────────────────
+       Spec sheet (6"):  W 6.00, BW 5.50, HB 4.1875, HF 4.00
+         - Top-front has an ogee "return hem": 5/8" in, 1" down, 5/16" out
+           back to face plane. Adds rigidity to the front lip.
+         - Rest of front is straight vertical
+         - Back is straight vertical (slightly taller than front)
+         - Bottom is flat (5.5" wide, offset toward the front so back stays plumb)
+       */
+    const bw = spec.widthBottom * S;
+    const hb = spec.heightBack * S;
+    const hf = spec.heightFront * S;
+    const taper = W - bw;      // total horizontal taper (front side only)
+    const hemH = spec.frontLip * S;  // vertical depth of the ogee return
+    const hemW = 5 / 16 * S;   // horizontal offset of the ogee return
     outline = `
       M ${SX} ${SY}
       L ${SX + W} ${SY}
-      L ${SX + W} ${SY + 18}
-      Q ${SX + W} ${SY + H} ${SX + W - H / 2 - 8} ${SY + H}
-      L ${SX + H / 2 + 8} ${SY + H}
-      Q ${SX} ${SY + H} ${SX} ${SY + 18}
+      L ${SX + W} ${SY + hb}
+      L ${SX + taper} ${SY + hf}
+      L ${SX + taper} ${SY + hemH + hemW}
+      Q ${SX + taper - 2} ${SY + hemH}, ${SX + taper - hemW} ${SY + hemH}
+      L ${SX + hemW * 0.6} ${SY + hemH}
+      Q ${SX} ${SY + hemH}, ${SX} ${SY + hemH * 0.6}
+      L ${SX} ${SY}
       Z
     `;
     bowl = `
-      M ${SX + 8} ${SY + 12}
-      L ${SX + W - 8} ${SY + 12}
-      Q ${SX + W - 12} ${SY + H - 10} ${SX + W - H / 2 - 12} ${SY + H - 10}
-      L ${SX + H / 2 + 12} ${SY + H - 10}
-      Q ${SX + 12} ${SY + H - 10} ${SX + 8} ${SY + 12}
+      M ${SX + taper + 4} ${SY + hemH + 4}
+      L ${SX + W - 4} ${SY + hemH + 4}
+      L ${SX + W - 4} ${SY + hb - 6}
+      L ${SX + taper + 4} ${SY + hf - 6}
       Z
     `;
-    topRim = `M ${SX + 6} ${SY + 4} L ${SX + W - 6} ${SY + 4}`;
+    topRim = `M ${SX + 4} ${SY + 4} L ${SX + W - 4} ${SY + 4}`;
+  } else {
+    /* ─── HALF-ROUND ───────────────────────────────────────────────────
+       Spec sheet (6.5"):  W 6.50, HB 3.25, radius R 3"
+         - Front (LEFT) rolled scroll-hook lip: 5/8" (0.625") tall
+         - Back (RIGHT) straight standing bead: 1/2" (0.5") tall
+         - Bowl semicircle radius: 3" (chord = 6")
+         - Spec total width 6.5" leaves ~1/4" (10 units) for each lip
+       Drawn as ONE closed contour, solid-filled, with the hook AND bead
+       both distinctly visible on the outer perimeter. */
+    const hookL = spec.frontLip * S;     // 5/8" hook height (25 units)
+    const beadR = 0.5 * S;               // 1/2" bead height (20 units)
+    const HR = (spec.radius ?? W / 2) * S;  // 3" bowl radius (120 units)
+    const mouthY = Math.max(hookL, beadR);  // arc endpoints at same Y for clean semicircle
+    const bowlLeft = SX + (W - HR * 2) / 2;   // arc x-start
+    const bowlRight = bowlLeft + HR * 2;       // arc x-end
+    outline = `
+      M ${SX} ${SY}
+      L ${SX + W} ${SY}
+      L ${SX + W} ${SY + beadR}
+      L ${bowlRight} ${SY + beadR}
+      Q ${bowlRight} ${SY + mouthY}, ${bowlRight - 2} ${SY + mouthY}
+      A ${HR} ${HR} 0 0 1 ${bowlLeft + 2} ${SY + mouthY}
+      Q ${bowlLeft} ${SY + mouthY}, ${bowlLeft} ${SY + hookL}
+      L ${SX + hookL * 0.6} ${SY + hookL}
+      Q ${SX} ${SY + hookL}, ${SX} ${SY + hookL * 0.55}
+      Q ${SX} ${SY - 2}, ${SX + hookL * 0.35} ${SY}
+      L ${SX} ${SY}
+      Z
+    `;
+    // AO overlay: the concave interior of the bowl
+    bowl = `
+      M ${bowlLeft + 6} ${SY + mouthY + 6}
+      A ${HR - 6} ${HR - 6} 0 0 1 ${bowlRight - 6} ${SY + mouthY + 6}
+      L ${bowlLeft + 6} ${SY + mouthY + 6}
+      Z
+    `;
+    topRim = `M ${SX + hookL * 0.6} ${SY + 3} L ${SX + W - beadR + 2} ${SY + 3}`;
   }
 
   // Patina spots for copper — fixed pseudo-random positions so they don't
@@ -709,7 +807,7 @@ function BigCrossSection({
         <path d={topRim} stroke="rgba(255,255,255,0.55)" strokeWidth="0.8" fill="none" />
       </g>
 
-      {/* Dimension line */}
+      {/* Top-width dimension line */}
       <g stroke="rgba(245,245,240,0.4)" strokeWidth="0.75" fill="none">
         <line x1={SX} y1={SY - 10} x2={SX + W} y2={SY - 10} />
         <line x1={SX} y1={SY - 14} x2={SX} y2={SY - 6} />
@@ -724,10 +822,34 @@ function BigCrossSection({
         fill="#B5B5B0"
         letterSpacing="2"
       >
-        {profile.size}.0″
+        {fmtDim(spec.widthTop)}″
+      </text>
+
+      {/* Right-side height dimension line */}
+      <g stroke="rgba(245,245,240,0.4)" strokeWidth="0.75" fill="none">
+        <line x1={SX + W + 12} y1={SY} x2={SX + W + 12} y2={SY + H} />
+        <line x1={SX + W + 8} y1={SY} x2={SX + W + 16} y2={SY} />
+        <line x1={SX + W + 8} y1={SY + H} x2={SX + W + 16} y2={SY + H} />
+      </g>
+      <text
+        x={SX + W + 18}
+        y={SY + H / 2}
+        textAnchor="start"
+        dominantBaseline="middle"
+        fontFamily="var(--font-mono)"
+        fontSize="11"
+        fill="#B5B5B0"
+        letterSpacing="2"
+      >
+        {fmtDim(Math.max(spec.heightBack, spec.heightFront))}″
       </text>
     </svg>
   );
+}
+
+/** Format an inch value: strip trailing zeros so 3.25 stays 3.25 but 5.0 → 5. */
+function fmtDim(n: number): string {
+  return Number.isInteger(n) ? String(n) : String(parseFloat(n.toFixed(3)));
 }
 
 /* ====================================================================

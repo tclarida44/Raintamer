@@ -22,7 +22,7 @@ export const CITIES: City[] = [
     lat: 35.4676,
     lng: -97.5164,
     intro:
-      "Oklahoma City homes face the full range of plains weather, from spring squall lines to summer downpours that can dump an inch of rain in twenty minutes. Rain Tamer has been protecting OKC properties since 2012.",
+      "Oklahoma City homes face the full range of plains weather, from spring squall lines to summer downpours that can dump an inch of rain in twenty minutes. Rain Tamer has been protecting OKC properties since 2011.",
     localDetail: "From the historic homes near Mesta Park to new builds in Deer Creek, we install seamless gutters across every OKC zip code.",
   },
   {
@@ -94,8 +94,8 @@ export const CITIES: City[] = [
     lat: 35.555,
     lng: -97.5414,
     intro:
-      "Nichols Hills properties expect a finish quality that matches the home. Hand-mitered corners, hidden hangers, and copper or premium painted aluminum: this is where our craftsmanship shows.",
-    localDetail: "Many of our copper and half-round installs are in Nichols Hills, where the architecture deserves the upgrade.",
+      "In Nichols Hills we see a lot of half-round copper and specialty profiles over tile and slate roofs. We bring the right machine for the job and the trim-carpentry patience to make the fascia line look right.",
+    localDetail: "A good chunk of our half-round, copper, and zinc work ends up in Nichols Hills on homes that reward getting the details right.",
   },
   {
     slug: "the-village",

@@ -22,11 +22,13 @@ function SpecStat({ term, value, small }: { term: string; value: string; small?:
  * keeps the editorial feel while delivering the proven visual variety.
  */
 const SERVICE_IMAGES: Record<ServiceSlug, string> = {
-  "seamless-gutters": "/images/stock/colonial-home.jpg",
-  "commercial-gutters": "/images/stock/modern-home.jpg",
-  "french-drains": "/images/stock/installer-caulk.jpg",
-  "gutter-guards": "/images/stock/autumn-home.jpg",
-  "gutter-cleaning": "/images/stock/roof-edge.jpg",
+  // Featured seamless tile — use the biggest, most impressive residential
+  // install we have (long copper half-round with dormer row).
+  "seamless-gutters": "/images/raintamer/custom/custom-08.jpg",
+  "commercial-gutters": "/images/raintamer/commercial/commercial-12.jpg",
+  "french-drains": "/images/raintamer/drains/drains-01.jpg",
+  "gutter-guards": "/images/raintamer/leaf-guards/leaf-guards-05.jpg",
+  "gutter-cleaning": "/images/raintamer/trucks-crew/trucks-crew-07.jpg",
 };
 
 const SERVICE_LAYOUT: Record<ServiceSlug, string> = {
@@ -40,8 +42,8 @@ const SERVICE_LAYOUT: Record<ServiceSlug, string> = {
 const FEATURE_BULLETS: Record<ServiceSlug, string[]> = {
   "seamless-gutters": [
     "K-Style 5″ & 6″, Box, Half Round",
-    "23 painted colors + copper + Galvalume",
-    "Hand-mitered corners, internal hangers 24″ OC",
+    "28 painted colors + copper, Galvalume, Zinc, Steel",
+    "Hand-mitered corners, hidden hangers 24″ OC",
   ],
   "commercial-gutters": [
     "Heavier-gauge aluminum & Galvalume",
@@ -67,14 +69,14 @@ const FEATURE_BULLETS: Record<ServiceSlug, string[]> = {
 
 export function ServicesGrid() {
   return (
-    <section className="brand-ambient border-b border-bone-50/10 py-16 lg:py-24">
+    <section className="brand-section-blue border-b border-bone-50/10 py-16 lg:py-24">
       <Container size="full">
         <SectionLabel number="03" label="Capabilities" />
 
         <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <Reveal>
-              <Eyebrow>Five disciplines</Eyebrow>
+              <Eyebrow>Five specialties</Eyebrow>
               <h2 className="mt-5 font-display font-medium tracking-[-0.04em] text-balance text-bone-50 text-[clamp(2.5rem,6vw,4.75rem)] leading-[0.95]">
                 Every drop has somewhere to go.
               </h2>
@@ -83,13 +85,13 @@ export function ServicesGrid() {
           <div className="lg:col-span-7 lg:pt-4">
             <Reveal>
               <p className="max-w-2xl text-[17px] leading-[1.6] text-bone-300">
-                One company. One install standard. From the eave to the lot line, we design the entire water path on your property, not just the part you can see from the curb. The five disciplines below are designed to work as a system: gutters move water off the roof, drainage carries it away from the foundation, guards keep both flowing.
+                One company. One install standard. From the eave to the lot line, we design the entire water path on your property, not just the part you can see from the curb. The five specialties below are designed to work as a system: gutters move water off the roof, drainage carries it away from the foundation, guards keep both flowing.
               </p>
               <p className="mt-4 max-w-2xl text-[15px] leading-[1.6] text-bone-300">
                 Most homes need a combination of two or three. We walk the property first, then recommend the smallest scope that actually solves your water problem, not the largest one we can sell.
               </p>
               <dl className="mt-8 grid max-w-xl grid-cols-3 gap-x-6 gap-y-4 border-t border-bone-50/10 pt-6">
-                <SpecStat term="Disciplines" value="5" />
+                <SpecStat term="Specialties" value="5" />
                 <SpecStat term="Standard" value="1" />
                 <SpecStat term="Warranty" value="Lifetime" small />
               </dl>
@@ -141,7 +143,7 @@ function ServiceCard({
   return (
     <Link
       href={`/services/${slug}`}
-      className="group relative flex h-full min-h-[260px] flex-col justify-between overflow-hidden border border-bone-50/10 bg-ink-950 transition-colors hover:border-rain-500/40"
+      className="group relative flex h-full min-h-[260px] flex-col justify-between overflow-hidden border border-bone-50/25 bg-ink-950 shadow-[0_8px_32px_rgba(10,10,11,0.55)] transition-all hover:border-rain-500/60 hover:shadow-[0_12px_40px_rgba(31,102,255,0.35)]"
     >
       <Image
         src={image}

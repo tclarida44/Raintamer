@@ -7,27 +7,27 @@ import { Reveal } from "@/components/ui/Reveal";
 import { GUTTER_COLORS } from "@/lib/colors";
 
 /**
- * Visual filler that doubles as material proof. Shows all 23 painted colors
- * + 2 premium metals as a long horizontal tile strip with the color name
- * overlaid. Breaks up the type-heavy editorial flow with pure color.
+ * Visual filler that doubles as material proof. Shows the painted color
+ * range plus the premium metals as a long horizontal tile strip with the
+ * color name overlaid. Breaks up the type-heavy editorial flow with pure color.
  */
 export function ColorStrip() {
   const painted = GUTTER_COLORS.filter((c) => !c.premium);
   const premium = GUTTER_COLORS.filter((c) => c.premium);
 
   return (
-    <section className="border-b border-bone-50/10 bg-ink-950 py-20 lg:py-28">
+    <section className="brand-section-blue border-b border-bone-50/10 py-20 lg:py-28">
       <Container size="full">
         <SectionLabel number="—" label="Color Library" />
 
         <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-16">
           <Reveal className="lg:col-span-5">
-            <Eyebrow>Twenty-three painted · Two premium</Eyebrow>
+            <Eyebrow>28 painted · 5 premium metals</Eyebrow>
             <h2 className="mt-5 font-display font-medium tracking-[-0.04em] text-balance text-bone-50 text-[clamp(2.25rem,5vw,4rem)] leading-[0.95]">
               Match the gutter to the home.
             </h2>
             <p className="mt-6 max-w-md text-[17px] leading-[1.55] text-bone-300">
-              Baked-on painted aluminum holds its color for decades. Solid copper develops a patina you can&apos;t fake. Galvalume Plus steel for commercial-grade installs and modern builds.
+              Baked-enamel finish on painted aluminum (coil from Senox) holds its color for decades. Copper develops a patina you can&apos;t fake. Galvalume, Zinc, and Steel round out the five premium metals — all available upon request.
             </p>
             <Link
               href="/services/seamless-gutters#configurator"
@@ -40,7 +40,7 @@ export function ColorStrip() {
 
           <div className="lg:col-span-7">
             <Reveal>
-              <Eyebrow>Painted aluminum · 23 colors</Eyebrow>
+              <Eyebrow>Painted aluminum · 28 colors · Senox coil</Eyebrow>
             </Reveal>
 
             <Reveal delayMs={80} className="mt-5">

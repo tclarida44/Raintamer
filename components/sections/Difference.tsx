@@ -25,11 +25,11 @@ export function Difference() {
               <Reveal delayMs={120} className="mt-12 hidden lg:block">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-[3px]">
                   <Image
-                    src="/images/stock/installer-caulk.jpg"
-                    alt="Detail of an install: sealant on a corner miter."
+                    src="/images/raintamer/custom/custom-09.jpg"
+                    alt="Hand-formed copper collector box on a copper half-round install."
                     fill
                     sizes="(min-width: 1024px) 40vw, 100vw"
-                    quality={75}
+                    quality={80}
                     className="object-cover"
                   />
                 </div>

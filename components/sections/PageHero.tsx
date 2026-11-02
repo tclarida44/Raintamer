@@ -37,7 +37,7 @@ export function PageHero({
 }: Props) {
   return (
     <section className="border-b border-bone-50/10">
-      <Container size="full" className="pt-32 pb-16 lg:pt-44 lg:pb-24">
+      <Container size="full" className="pt-28 pb-10 lg:pt-44 lg:pb-24">
         {breadcrumbs && (
           <nav className="mb-10 flex flex-wrap items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.22em] text-bone-500">
             {breadcrumbs.map((b, i) => (
@@ -70,13 +70,30 @@ export function PageHero({
                 <p className="mt-4 max-w-md text-[15px] leading-[1.6] text-bone-300">{secondary}</p>
               )}
               {meta && meta.length > 0 && (
-                <dl className="mt-8 grid grid-cols-3 gap-x-4 gap-y-4 border-t border-bone-50/10 pt-6">
+                // Vertical stack at ALL screen sizes — each stat is its
+                // own row (value on left, label on right). No cross-row
+                // alignment to fail, so desktop and mobile render the
+                // SAME LAYOUT with the SAME baseline behavior. Whatever
+                // fonts, breakpoints, or rendering quirks a device has,
+                // this cannot show one value "higher" than another
+                // because every value lives on its own DOM row.
+                <dl
+                  data-meta-strip="v4-stacked"
+                  className="mt-6 divide-y divide-bone-50/10 border-t border-b border-bone-50/10 lg:mt-8"
+                >
                   {meta.map((m) => (
-                    <div key={m.label}>
-                      <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-bone-500">
+                    <div
+                      key={m.label}
+                      className="flex items-baseline gap-4 py-3.5 lg:py-4"
+                    >
+                      <dd
+                        className="num min-w-[2.5rem] flex-none text-[28px] leading-none text-bone-50 sm:text-[32px]"
+                      >
+                        {m.value}
+                      </dd>
+                      <dt className="font-mono text-[10.5px] uppercase leading-tight tracking-[0.22em] text-bone-500">
                         {m.label}
                       </dt>
-                      <dd className="num mt-2 text-xl text-bone-50 sm:text-2xl">{m.value}</dd>
                     </div>
                   ))}
                 </dl>

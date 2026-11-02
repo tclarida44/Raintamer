@@ -7,7 +7,23 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import { PROJECTS, type Project } from "@/lib/projects";
 
-const HOMEPAGE_FEATURED = PROJECTS.slice(0, 6);
+// Hand-picked 6-tile lineup for the homepage. First 3 slots show
+// current K-style hero shots; last 3 slots showcase profile + service
+// variety: drain trench, half-round, and box gutter — one strong
+// example of each so the section reads as breadth-of-work, not just
+// K-style variations.
+const HOMEPAGE_FEATURED_IDS = [
+  "aug-k5-01",
+  "aug-k5-02",
+  "aug-k5-03",
+  "aug-dr-04",
+  "hr-04",
+  "aug-box-01",
+] as const;
+
+const HOMEPAGE_FEATURED = HOMEPAGE_FEATURED_IDS
+  .map((id) => PROJECTS.find((p) => p.id === id))
+  .filter((p): p is (typeof PROJECTS)[number] => Boolean(p));
 
 function ProjectStat({ value, label }: { value: string; label: string }) {
   return (
@@ -36,15 +52,12 @@ export function ProjectsGrid() {
           <div className="lg:col-span-7 lg:pt-4">
             <Reveal>
               <p className="max-w-2xl text-[17px] leading-[1.6] text-bone-300">
-                Selected installs from across the metro. Copper half-rounds in Nichols Hills, whole-home replacements in Edmond, French drains in Norman, and everything in between. Photography is being updated; current images are filler.
-              </p>
-              <p className="mt-4 max-w-2xl text-[15px] leading-[1.6] text-bone-300">
-                Browse the full gallery to filter by service type, or jump straight to a service area to see what we do in your neighborhood.
+                Real Rain Tamer installs across the OKC metro. Copper half-round, seamless K-style, modern box profiles, French drains, and gutter guards — six recent shots below, the full library waits in the gallery.
               </p>
               <div className="mt-8 flex flex-wrap items-end gap-x-10 gap-y-6 border-t border-bone-50/10 pt-6">
-                <ProjectStat value="5,000+" label="Installs since 2012" />
+                <ProjectStat value="42,000+" label="Projects since 2010" />
                 <ProjectStat value="11" label="Metro cities" />
-                <ProjectStat value="12" label="Featured here" />
+                <ProjectStat value="67" label="In the gallery" />
                 <Link
                   href="/gallery"
                   className="ml-auto inline-flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-[0.22em] text-rain-400 hover:text-rain-500"

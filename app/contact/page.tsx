@@ -10,18 +10,24 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Get a Free Estimate",
+  title: "Get a Free Gutter Estimate — Oklahoma City",
+  keywords: [
+    "free gutter estimate Oklahoma City",
+    "gutter estimate OKC",
+    "gutter quote Oklahoma City",
+    "free gutter installation quote OKC",
+    "gutter contractor near me Oklahoma City",
+    "seamless gutter quote OKC",
+    "French drain quote Oklahoma City",
+    "gutter guard estimate Oklahoma City",
+    "commercial gutter quote OKC",
+    "Rain Tamer contact",
+  ],
   description:
     "Request a free estimate from Rain Tamer. Seamless gutters, French drains, and gutter guards across the Oklahoma City metro.",
 };
 
-export default async function ContactPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ profile?: string; color?: string }>;
-}) {
-  const { profile, color } = await searchParams;
-
+export default function ContactPage() {
   return (
     <>
       <JsonLd
@@ -48,7 +54,7 @@ export default async function ContactPage({
         <Container size="full">
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
             <Reveal className="lg:col-span-8">
-              <QuoteForm defaultProfile={profile} defaultColor={color} />
+              <QuoteForm />
             </Reveal>
             <Reveal className="lg:col-span-4 space-y-3">
               <SideCard title="Call directly">
@@ -58,13 +64,6 @@ export default async function ContactPage({
                 >
                   <Phone className="size-5 text-rain-500" />
                   {SITE.phone}
-                </a>
-                <a
-                  href={`mailto:${SITE.email}`}
-                  className="mt-4 flex items-center gap-3 text-[15px] text-bone-300 hover:text-bone-50"
-                >
-                  <Mail className="size-4 text-rain-500" />
-                  {SITE.email}
                 </a>
               </SideCard>
 

@@ -35,9 +35,9 @@ export const STANDARDS: InstallStandard[] = [
   },
   {
     number: "05",
-    title: "Positive Slope, Verified Run by Run",
+    title: "Pitched to Drain, Every Run",
     detail:
-      "Every gutter is pitched a minimum of 1/4\" per 10' toward the downspout, checked with a level on every run. Standing water is the first thing that kills a gutter.",
+      "Every gutter is pitched to drain to the nearest downspout. Gutters that are hung level will never function properly and cause a multitude of issues down the road.",
   },
   {
     number: "06",

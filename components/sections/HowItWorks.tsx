@@ -48,7 +48,7 @@ const STEPS = [
     num: "03",
     icon: Hammer,
     title: "Installed in a day",
-    body: "Crews arrive on time. Seamless aluminum formed on site. Hand-mitered corners. Bagged debris hauled off. Warranty walked through before we leave.",
+    body: "The crew shows up on time, forms the aluminum on your driveway, hand-miters the corners, bags the debris, and walks the warranty with you before leaving.",
     duration: "Most homes: single day",
   },
 ];
@@ -83,8 +83,8 @@ export function HowItWorks() {
               <div className="relative overflow-hidden border border-bone-50/10 bg-ink-950">
                 <div className="relative aspect-[16/9]">
                   <Image
-                    src="/images/stock/installer-caulk.jpg"
-                    alt="Detail of an install: sealant on a corner miter."
+                    src="/images/raintamer/custom/custom-03.jpg"
+                    alt="Copper crown install in progress."
                     fill
                     sizes="(min-width: 1024px) 40vw, 100vw"
                     quality={75}

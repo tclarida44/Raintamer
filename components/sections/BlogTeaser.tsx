@@ -38,7 +38,7 @@ export function BlogTeaser() {
               Practical pieces from the people doing the work: how often to clean gutters in Oklahoma, when a French drain is worth it, which gutter profile belongs on which home.
             </p>
             <p className="mt-4 max-w-md text-[15px] leading-[1.6] text-bone-300">
-              Written by the installers, not the marketing team. If you read one before the walk-through, the conversation goes faster.
+              Short reads from the install crews on how OKC weather actually treats your roof line. If you&apos;ve got a few minutes before the walk-through, these answer a lot of the questions people usually ask on site.
             </p>
 
             {/* Topics quick-jump */}

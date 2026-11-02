@@ -14,7 +14,22 @@ import { breadcrumbSchema } from "@/lib/schema";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Service Areas",
+  title: "Gutter Contractor Service Areas — OKC Metro",
+  keywords: [
+    "gutter contractor service areas Oklahoma City",
+    "seamless gutters OKC metro",
+    "gutter installation Edmond OK",
+    "gutter installation Norman OK",
+    "gutter installation Moore OK",
+    "gutter installation Yukon OK",
+    "gutter installation Mustang OK",
+    "gutter installation Nichols Hills",
+    "gutter installation Bethany OK",
+    "gutter installation The Village OK",
+    "gutter installation Warr Acres OK",
+    "gutter installation Tuttle OK",
+    "OKC metro gutter contractor",
+  ],
   description:
     "Rain Tamer installs seamless gutters, French drains, and gutter guards across Oklahoma City, Edmond, Norman, Moore, Mustang, Yukon, Bethany, Warr Acres, Nichols Hills, The Village, and Tuttle.",
 };
