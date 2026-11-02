@@ -36,14 +36,32 @@ export function ServiceMap() {
         zoom: 10,
         scrollWheelZoom: false,
         zoomControl: false,
-        attributionControl: false,
+        // Keep Leaflet's attribution control enabled (required by Esri's
+        // tile terms) but let the tileLayer provide the credit string
+        // rather than Leaflet's default "Leaflet | ..." prefix.
+        attributionControl: true,
       });
+      map.attributionControl.setPrefix("");
 
+      // Esri World Dark Gray Canvas — free, no API key, matches the
+      // site's dark theme. Previously used CARTO's dark_all basemap but
+      // CARTO started requiring an API key in late 2026 and the tiles
+      // began rendering as "API KEY REQUIRED" placeholders.
       L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+        "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
         {
-          maxZoom: 19,
-          subdomains: "abcd",
+          maxZoom: 16,
+          attribution: "Tiles © Esri",
+        },
+      ).addTo(map);
+
+      // Reference overlay with labels (city/road names) on top of the
+      // basemap, so the Esri tiles aren't blank gray without context.
+      L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}",
+        {
+          maxZoom: 16,
+          attribution: "",
         },
       ).addTo(map);
 
